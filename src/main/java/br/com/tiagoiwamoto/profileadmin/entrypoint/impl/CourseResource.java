@@ -1,4 +1,4 @@
-package br.com.tiagoiwamoto.profileadmin.entrypoint;
+package br.com.tiagoiwamoto.profileadmin.entrypoint.impl;
 
 import br.com.tiagoiwamoto.profileadmin.core.usecase.impl.CourseUsecase;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.CourseDto;

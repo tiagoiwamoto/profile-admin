@@ -8,13 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tbl_scholarities")
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class ScholarityDomain extends AbstractDomain{
+public class ScholarityDomain extends AbstractDomainWithImage {
 
     private String schoolName;
     private String courseName;
@@ -23,11 +24,12 @@ public class ScholarityDomain extends AbstractDomain{
     private LocalDate startDate;
     private LocalDate dateOfConclusion;
 
-    private String pathOfImage;
-    private String pathOfImageThumb;
-
-    public void domainToSave() {
-        this.setCreatedAt(LocalDateTime.now());
-        this.setUpdatedAt(LocalDateTime.now());
+    public void createOrUpdate(){
+        if(Objects.isNull(this.getId())){
+            this.domainToSave();
+        }else{
+            this.domainToUpdate(this);
+        }
     }
+
 }

@@ -11,28 +11,30 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tbl_courses")
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class CourseDomain extends AbstractDomain{
+public class CourseDomain extends AbstractDomainWithImage {
 
     private String name;
     private String school;
     private Integer duration;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String pathOfImage;
-    private String pathOfImageThumb;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private CourseCategoryDomain courseCategory;
 
-    @Override
-    public void domainToSave() {
-        this.setCreatedAt(LocalDateTime.now());
-        this.setUpdatedAt(LocalDateTime.now());
+    public void createOrUpdate(){
+        if(Objects.isNull(this.getId())){
+            this.domainToSave();
+        }else{
+            this.domainToUpdate(this);
+        }
     }
+
 }

@@ -39,23 +39,17 @@ public class ScholarityUsecase implements IUsecaseWithFile<ScholarityDto> {
             scholarityDto.setUuid(scholarityUuid);
         }else{
             path = Paths.get(PATH.concat(scholarityDto.getUuid().toString()));
-            ScholarityDomain scholarityDomain = this.scholarityAdapter.recoveryByUuid(scholarityDto.getUuid());
+            var scholarityDomain = this.scholarityAdapter.recoveryByUuid(scholarityDto.getUuid());
             scholarityDomain.setPathOfImageThumb(scholarityDomain.getPathOfImageThumb());
             scholarityDomain.setPathOfImage(scholarityDomain.getPathOfImage());
-            if(!Objects.isNull(multipartFile)){
-                imageDto = this.imageAndThumbAdapter.replaceImage(
-                        multipartFile,
-                        path,
-                        scholarityDomain.getPathOfImage(),
-                        scholarityDomain.getPathOfImageThumb()
-                );
-            }else{
-                imageDto = new ImageDto(scholarityDomain.getPathOfImage(), scholarityDomain.getPathOfImageThumb());
-            }
+            scholarityDto.setCreatedAt(scholarityDomain.getCreatedAt());
+            scholarityDto.setUpdatedAt(scholarityDomain.getUpdatedAt());
+            imageDto = this.imageAndThumbAdapter.validUpdateOfImage(path, multipartFile, scholarityDomain);
         }
-        scholarityDto.setPathOfCertificate(imageDto.getPathOfImage());
-        scholarityDto.setPathOfCertificateThumb(imageDto.getPathOfThumb());
+        scholarityDto.setPathOfImage(imageDto.getPathOfImage());
+        scholarityDto.setPathOfImageThumb(imageDto.getPathOfThumb());
         var scholarityDomain = this.scholarityMapper.toProfileDomain(scholarityDto);
+        scholarityDomain.createOrUpdate();
         var response = this.scholarityAdapter.save(scholarityDomain);
         return this.scholarityMapper.toProfileDto(response);
     }

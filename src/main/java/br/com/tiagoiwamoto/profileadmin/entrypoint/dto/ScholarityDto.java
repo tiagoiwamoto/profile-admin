@@ -24,8 +24,8 @@ public class ScholarityDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfConclusion;
 
-    private String pathOfCertificate;
-    private String pathOfCertificateThumb;
+    private String pathOfImage;
+    private String pathOfImageThumb;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

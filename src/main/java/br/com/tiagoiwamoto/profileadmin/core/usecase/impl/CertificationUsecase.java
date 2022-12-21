@@ -8,6 +8,7 @@ import br.com.tiagoiwamoto.profileadmin.core.mapper.CertificationMapper;
 import br.com.tiagoiwamoto.profileadmin.core.usecase.IUsecaseWithFile;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.CertificationDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CertificationUsecase implements IUsecaseWithFile<CertificationDto> {
 
     private final CertificationAdapter certificationAdapter;
@@ -29,42 +31,40 @@ public class CertificationUsecase implements IUsecaseWithFile<CertificationDto> 
     private final String PATH = "files/certifications/";
 
     public CertificationDto createOrUpdate(CertificationDto certificationDto, MultipartFile multipartFile){
-        //TODO: Melhorar logs
+        log.info("iniciando usecase de certification createOrUpdate");
         Path path;
         ImageDto imageDto;
         CertificationDomain certificationDomain;
         if(Objects.isNull(certificationDto.getId())){
+            log.info("certification createOrUpdate -> será criado um novo registro");
             UUID scholarityUuid = UUID.randomUUID();
             path = Paths.get(PATH.concat(scholarityUuid.toString()));
             imageDto = this.imageAndThumbAdapter.storeImage(multipartFile, path);
             certificationDto.setUuid(scholarityUuid);
         }else{
+            log.info("certification createOrUpdate -> será atualizado o registro");
             path = Paths.get(PATH.concat(certificationDto.getUuid().toString()));
             certificationDomain = this.certificationAdapter.recoveryByUuid(certificationDto.getUuid());
             certificationDomain.setPathOfImageThumb(certificationDomain.getPathOfImageThumb());
             certificationDomain.setPathOfImage(certificationDomain.getPathOfImage());
             certificationDto.setCreatedAt(certificationDomain.getCreatedAt());
             certificationDto.setUpdatedAt(certificationDomain.getUpdatedAt());
-            if(!Objects.isNull(multipartFile)){
-                imageDto = this.imageAndThumbAdapter.replaceImage(
-                        multipartFile,
-                        path,
-                        certificationDomain.getPathOfImage(),
-                        certificationDomain.getPathOfImageThumb()
-                );
-            }else{
-                imageDto = new ImageDto(certificationDomain.getPathOfImage(), certificationDomain.getPathOfImageThumb());
-            }
+            imageDto = this.imageAndThumbAdapter.validUpdateOfImage(path, multipartFile, certificationDomain);
         }
         certificationDto.setPathOfImage(imageDto.getPathOfImage());
         certificationDto.setPathOfImageThumb(imageDto.getPathOfThumb());
+        log.info("Convertendo certificationDto para certificationDomain");
         certificationDomain = this.certificationMapper.toDomain(certificationDto);
         certificationDomain.createOrUpdate();
         var response = this.certificationAdapter.save(certificationDomain);
-        return this.certificationMapper.toDto(response);
+        var certificationDtoConverted = this.certificationMapper.toDto(response);
+        log.info("Convertendo certificationDomain para certificationDto");
+        return certificationDtoConverted;
+
     }
 
     public List<CertificationDto> recoveryRecords(){
+        log.info(String.format("recuperar registros "));
         var response = this.certificationAdapter.all();
         var listOfScholarities = response
                 .stream()

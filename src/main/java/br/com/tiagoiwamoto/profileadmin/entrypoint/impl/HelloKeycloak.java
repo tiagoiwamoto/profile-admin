@@ -1,4 +1,4 @@
-package br.com.tiagoiwamoto.profileadmin.entrypoint;
+package br.com.tiagoiwamoto.profileadmin.entrypoint.impl;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

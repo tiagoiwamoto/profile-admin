@@ -14,17 +14,26 @@ import java.util.List;
 public class CourseAdapter extends AbstractAdapter<CourseDomain> {
 
     private CourseRepository repository;
+    private String domain;
     public CourseAdapter(CourseRepository repository) {
         super(repository, CourseDomain.class.getSimpleName());
         this.repository = repository;
+        this.domain = CourseDomain.class.getSimpleName();
     }
 
     public List<CourseDomain> all(CourseCategoryDomain courseCategoryDomain){
 
-        log.info("iniciando busca: metodo: CourseAdapter.all(), para o dominio: " + CourseDomain.class.getSimpleName());
+        log.info(String.format("iniciando busca: metodo: all(), para o dominio: %s", domain));
         try{
-            return this.repository.findAllByCourseCategory(courseCategoryDomain);
+            var response = this.repository.findAllByCourseCategory(courseCategoryDomain);
+            log.info(String.format("Resposta da consulta para o domínio %s: %s", domain, response));
+            return response;
         }catch (Exception e){
+            log.error(
+                    String.format(
+                            "Falha ao realizar consulta no dominio %s",
+                            domain),
+                    e);
             throw new RuntimeException(e);
         }
     }

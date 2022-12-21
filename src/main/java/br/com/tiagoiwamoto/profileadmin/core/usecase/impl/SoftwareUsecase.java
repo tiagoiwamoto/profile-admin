@@ -39,23 +39,17 @@ public class SoftwareUsecase implements IUsecaseWithFile<SoftwareDto> {
             softwareDto.setUuid(recordUuid);
         }else{
             path = Paths.get(PATH.concat(softwareDto.getUuid().toString()));
-            SoftwareDomain softwareDomain = this.softwareAdapter.recoveryByUuid(softwareDto.getUuid());
+            var softwareDomain = this.softwareAdapter.recoveryByUuid(softwareDto.getUuid());
             softwareDomain.setPathOfImageThumb(softwareDomain.getPathOfImageThumb());
             softwareDomain.setPathOfImage(softwareDomain.getPathOfImage());
-            if(!Objects.isNull(multipartFile)){
-                imageDto = this.imageAndThumbAdapter.replaceImage(
-                        multipartFile,
-                        path,
-                        softwareDomain.getPathOfImage(),
-                        softwareDomain.getPathOfImageThumb()
-                );
-            }else{
-                imageDto = new ImageDto(softwareDomain.getPathOfImage(), softwareDomain.getPathOfImageThumb());
-            }
+            softwareDto.setCreatedAt(softwareDomain.getCreatedAt());
+            softwareDto.setUpdatedAt(softwareDomain.getUpdatedAt());
+            imageDto = this.imageAndThumbAdapter.validUpdateOfImage(path, multipartFile, softwareDomain);
         }
         softwareDto.setPathOfImage(imageDto.getPathOfImage());
         softwareDto.setPathOfImageThumb(imageDto.getPathOfThumb());
         var softwareDomain = this.softwareMapper.toDomain(softwareDto);
+        softwareDomain.createOrUpdate();
         var response = this.softwareAdapter.save(softwareDomain);
         return this.softwareMapper.toDto(response);
     }

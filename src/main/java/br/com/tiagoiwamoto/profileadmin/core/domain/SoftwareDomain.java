@@ -7,26 +7,27 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tbl_softwares")
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class SoftwareDomain extends AbstractDomain{
+public class SoftwareDomain extends AbstractDomainWithImage {
 
     private String name;
     @Column(length = 9999)
     private String description;
     private String url;
     private String urlMirror;
-    private String pathOfImage;
-    private String pathOfImageThumb;
 
-    @Override
-    public void domainToSave() {
-        this.setCreatedAt(LocalDateTime.now());
-        this.setUpdatedAt(LocalDateTime.now());
+    public void createOrUpdate(){
+        if(Objects.isNull(this.getId())){
+            this.domainToSave();
+        }else{
+            this.domainToUpdate(this);
+        }
     }
+
 }

@@ -20,10 +20,10 @@ public abstract class AbstractAdapter<T> implements IAdapter<T>{
 
     @Override
     public List<T> all() {
-        log.info("iniciando busca: metodo: all(), para o dominio: " + domain);
+        log.info(String.format("iniciando busca: metodo: all(), para o dominio: %s", domain));
         try{
             var response = this.repository.findAll();
-            log.info("Resposta da minha consulta: " + response);
+            log.info(String.format("Resposta da consulta para o domínio %s: %s", domain, response));
             return response;
         }catch (Exception e){
             log.error(
@@ -37,10 +37,10 @@ public abstract class AbstractAdapter<T> implements IAdapter<T>{
 
     @Override
     public T save(T record) {
-        log.info("iniciando gravação do registro " + domain);
+        log.info(String.format("iniciando gravação do registro %s", domain));
         try{
             var response = this.repository.save(record);
-            log.info("registro gravado com sucesso: " + response);
+            log.info(String.format("registro gravado com sucesso: %s", response));
             return response;
         }catch (Exception e){
             log.error(
@@ -54,9 +54,12 @@ public abstract class AbstractAdapter<T> implements IAdapter<T>{
 
     @Override
     public T recoveryByUuid(UUID uuid) {
+        log.info(String.format("iniciando a recuperação do registro %s para o domínio %s", uuid, domain));
         try{
             var optionalRecord = this.repository.findByUuid(uuid);
-            return optionalRecord.orElseThrow(() -> new RecordNotFoundException());
+            var optionalRecordResponse = optionalRecord.orElseThrow(() -> new RecordNotFoundException());
+            log.info(String.format("registro %s recuperado com sucesso para o domínio %s", uuid, domain));
+            return optionalRecordResponse;
         }catch (Exception e){
             log.error(
                     String.format(
@@ -69,9 +72,11 @@ public abstract class AbstractAdapter<T> implements IAdapter<T>{
 
     @Override
     public void delete(UUID uuid) {
+        log.info(String.format("iniciando a remoção do registro %s para o domínio %s", uuid, domain));
         try{
             var record = this.recoveryByUuid(uuid);
             this.repository.delete(record);
+            log.info(String.format("registro %s foi removido com sucesso para o domínio %s", uuid, domain));
         }catch (Exception e){
             log.error(
                     String.format(

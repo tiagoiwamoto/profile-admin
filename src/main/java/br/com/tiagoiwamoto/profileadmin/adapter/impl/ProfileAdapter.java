@@ -1,68 +1,60 @@
 package br.com.tiagoiwamoto.profileadmin.adapter.impl;
 
+import br.com.tiagoiwamoto.profileadmin.adapter.AbstractAdapter;
 import br.com.tiagoiwamoto.profileadmin.core.domain.ProfileDomain;
-import br.com.tiagoiwamoto.profileadmin.core.exceptions.RecordNotFoundException;
 import br.com.tiagoiwamoto.profileadmin.core.repository.ProfileRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
-public class ProfileAdapter {
+@Slf4j
+public class ProfileAdapter extends AbstractAdapter<ProfileDomain> {
 
-    private final ProfileRepository profileRepository;
-
-    public List<ProfileDomain> all(){
-        try{
-            return this.profileRepository.findAll();
-        }catch (Exception e){
-            throw new RuntimeException(e);
-        }
+    private ProfileRepository repository;
+    private String domain;
+    public ProfileAdapter(ProfileRepository repository) {
+        super(repository, ProfileDomain.class.getSimpleName());
+        this.repository = repository;
+        this.domain = ProfileDomain.class.getSimpleName();
     }
 
-    public ProfileDomain save(ProfileDomain profile){
-        try{
-            if(Objects.isNull(profile.getId())){
+    @Override
+    public ProfileDomain save(ProfileDomain profile) {
+        log.info(String.format("iniciando gravação do registro %s", domain));
+        try {
+            if (Objects.isNull(profile.getId())) {
+                log.info(String.format("registro novo a ser gravado para o dominio %s", domain));
                 profile.domainToSave();
-            }else{
+            } else {
+                log.info(String.format("registro a ser atualizado para o dominio %s", domain));
                 var oldProfile = this.recoveryByUuid(profile.getUuid());
+                log.info(String.format("registro a ser atualizado encontrado para o dominio %s", domain));
                 profile.domainToUpdate(oldProfile);
             }
 
-            if(profile.getIsActive()){
+            if (profile.getIsActive()) {
+                log.info(String.format("validação de registro ativo para o dominio %s", domain));
                 List<ProfileDomain> profilesToUpdate = new ArrayList<>();
-                this.profileRepository.findAll().forEach(profileDomain -> {
+                this.repository.findAll().forEach(profileDomain -> {
                     profileDomain.setIsActive(false);
                     profilesToUpdate.add(profileDomain);
                 });
-                this.profileRepository.saveAll(profilesToUpdate);
+                this.repository.saveAll(profilesToUpdate);
             }
 
-            return this.profileRepository.save(profile);
-        }catch (Exception e){
-            throw new RuntimeException(e);
-        }
-    }
-
-    public ProfileDomain recoveryByUuid(UUID uuid){
-        try{
-            var optionalRecord = this.profileRepository.findByUuid(uuid);
-            return optionalRecord.orElseThrow(() -> new RecordNotFoundException());
-        }catch (Exception e){
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void delete(UUID uuid){
-        try{
-            var record = this.recoveryByUuid(uuid);
-            this.profileRepository.delete(record);
-        }catch (Exception e){
+            var response = this.repository.save(profile);
+            log.info(String.format("registro gravado para o dominio %s", domain));
+            return response;
+        } catch (Exception e) {
+            log.error(
+                    String.format(
+                            "Falha ao gravar o dominio %s",
+                            domain),
+                    e);
             throw new RuntimeException(e);
         }
     }

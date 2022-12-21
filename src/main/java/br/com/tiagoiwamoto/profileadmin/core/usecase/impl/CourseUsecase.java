@@ -48,23 +48,17 @@ public class CourseUsecase {
                     .concat("/")
                     .concat(courseDto.getUuid().toString())
             );
-            CourseDomain courseDomain = this.courseAdapter.recoveryByUuid(courseDto.getUuid());
+            var courseDomain = this.courseAdapter.recoveryByUuid(courseDto.getUuid());
             courseDomain.setPathOfImageThumb(courseDomain.getPathOfImageThumb());
             courseDomain.setPathOfImage(courseDomain.getPathOfImage());
-            if(!Objects.isNull(multipartFile)){
-                imageDto = this.imageAndThumbAdapter.replaceImage(
-                        multipartFile,
-                        path,
-                        courseDomain.getPathOfImage(),
-                        courseDomain.getPathOfImageThumb()
-                );
-            }else{
-                imageDto = new ImageDto(courseDomain.getPathOfImage(), courseDomain.getPathOfImageThumb());
-            }
+            courseDto.setCreatedAt(courseDomain.getCreatedAt());
+            courseDto.setUpdatedAt(courseDomain.getUpdatedAt());
+            imageDto = this.imageAndThumbAdapter.validUpdateOfImage(path, multipartFile, courseDomain);
         }
         courseDto.setPathOfImage(imageDto.getPathOfImage());
         courseDto.setPathOfImageThumb(imageDto.getPathOfThumb());
         var courseDomain = this.courseMapper.toDomain(courseDto);
+        courseDomain.createOrUpdate();
         courseDomain.setCourseCategory(this.courseCategoryAdapter.recoveryByUuid(courseDto.getCourseCategoryUuid()));
         var response = this.courseAdapter.save(courseDomain);
         return this.courseMapper.toDto(response);
