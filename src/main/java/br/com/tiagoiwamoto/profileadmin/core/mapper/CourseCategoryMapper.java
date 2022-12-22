@@ -3,8 +3,10 @@ package br.com.tiagoiwamoto.profileadmin.core.mapper;
 import br.com.tiagoiwamoto.profileadmin.core.domain.CourseCategoryDomain;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.CourseCategoryDto;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
-public class CourseCategoryMapper {
+@Component
+public class CourseCategoryMapper implements IMapper<CourseCategoryDomain, CourseCategoryDto>{
 
     public CourseCategoryDomain toDomain(CourseCategoryDto courseCategoryDto){
         CourseCategoryDomain courseCategoryDomain = new CourseCategoryDomain();

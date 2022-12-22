@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @MappedSuperclass
 @Getter
@@ -21,5 +22,13 @@ public class AbstractDomainWithImage extends AbstractDomain{
     public void domainToSave() {
         this.setCreatedAt(LocalDateTime.now());
         this.setUpdatedAt(LocalDateTime.now());
+    }
+
+    public void createOrUpdate(){
+        if(Objects.isNull(this.getId())){
+            this.domainToSave();
+        }else{
+            this.domainToUpdate(this);
+        }
     }
 }

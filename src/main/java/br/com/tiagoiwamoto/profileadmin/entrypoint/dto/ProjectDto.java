@@ -8,14 +8,10 @@ import java.util.UUID;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProjectDto {
+public class ProjectDto extends AbstractDto{
 
-    private Long id;
-    private UUID uuid;
     private String name;
     private String description;
     private String url;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
 }

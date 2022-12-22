@@ -19,9 +19,9 @@ public class ProfileUsecase implements IUsecaseCommon<ProfileDto> {
     private final ProfileMapper profileMapper;
 
     public ProfileDto createOrUpdate(ProfileDto profile){
-        var profileDomain = this.profileMapper.toProfileDomain(profile);
+        var profileDomain = this.profileMapper.toDomain(profile);
         var response = this.profileAdapter.save(profileDomain);
-        return this.profileMapper.toProfileDto(response);
+        return this.profileMapper.toDto(response);
     }
 
     public List<ProfileDto> recoveryRecords(){
@@ -30,7 +30,7 @@ public class ProfileUsecase implements IUsecaseCommon<ProfileDto> {
                 .stream()
                 .map(
                         profile ->
-                                this.profileMapper.toProfileDto(profile))
+                                this.profileMapper.toDto(profile))
                 .collect(Collectors.toList());
 
         return listOfProfilesDtos;
@@ -39,7 +39,7 @@ public class ProfileUsecase implements IUsecaseCommon<ProfileDto> {
     public ProfileDto recoveryRecord(UUID uuid){
         var response = this.profileAdapter.recoveryByUuid(uuid);
 
-        return this.profileMapper.toProfileDto(response);
+        return this.profileMapper.toDto(response);
     }
 
     public void removeRecord(UUID uuid){

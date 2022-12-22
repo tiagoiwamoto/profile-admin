@@ -1,5 +1,7 @@
 package br.com.tiagoiwamoto.profileadmin.entrypoint.impl;
 
+import br.com.tiagoiwamoto.profileadmin.core.usecase.AbstractUsecase;
+import br.com.tiagoiwamoto.profileadmin.core.usecase.IUsecaseCommon;
 import br.com.tiagoiwamoto.profileadmin.core.usecase.impl.CourseCategoryUsecase;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.AbstractResource;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.CourseCategoryDto;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/courses_categories")
 public class CourseCategoryResource extends AbstractResource<CourseCategoryDto> {
 
-    public CourseCategoryResource(CourseCategoryUsecase courseCategoryUsecase) {
+    public CourseCategoryResource(IUsecaseCommon courseCategoryUsecase) {
         super(courseCategoryUsecase, "/courses_categories");
     }
 }

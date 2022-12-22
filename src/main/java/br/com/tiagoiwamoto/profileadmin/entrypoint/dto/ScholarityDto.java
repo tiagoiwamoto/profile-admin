@@ -10,10 +10,8 @@ import java.util.UUID;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ScholarityDto {
+public class ScholarityDto extends AbstractDtoWithImage{
 
-    private Long id;
-    private UUID uuid;
 
     private String schoolName;
     private String courseName;
@@ -24,9 +22,4 @@ public class ScholarityDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfConclusion;
 
-    private String pathOfImage;
-    private String pathOfImageThumb;
-
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }

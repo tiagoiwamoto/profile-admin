@@ -3,8 +3,10 @@ package br.com.tiagoiwamoto.profileadmin.core.mapper;
 import br.com.tiagoiwamoto.profileadmin.core.domain.CertificationDomain;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.CertificationDto;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
-public class CertificationMapper {
+@Component
+public class CertificationMapper implements IMapper<CertificationDomain, CertificationDto>{
 
     public CertificationDomain toDomain(CertificationDto certificationDto){
         CertificationDomain certificationDomain = new CertificationDomain();

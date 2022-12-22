@@ -20,7 +20,7 @@ public class ResumeUsecase implements IUsecaseCommon<ResumeDto> {
     private final ResumeMapper resumeMapper;
 
     public ResumeDto createOrUpdate(ResumeDto resumeDto){
-        var resumeDomain = this.resumeMapper.toResumeDomain(resumeDto);
+        var resumeDomain = this.resumeMapper.toDomain(resumeDto);
         if(Objects.isNull(resumeDto.getId())){
             resumeDomain.domainToSave();
         }else{
@@ -29,7 +29,7 @@ public class ResumeUsecase implements IUsecaseCommon<ResumeDto> {
         }
 
         var response = this.resumeAdapter.save(resumeDomain);
-        return this.resumeMapper.toResumeDto(response);
+        return this.resumeMapper.toDto(response);
     }
 
     public List<ResumeDto> recoveryRecords(){
@@ -38,7 +38,7 @@ public class ResumeUsecase implements IUsecaseCommon<ResumeDto> {
                 .stream()
                 .map(
                         record ->
-                                this.resumeMapper.toResumeDto(record))
+                                this.resumeMapper.toDto(record))
                 .collect(Collectors.toList());
 
         return listOfRecordsDtos;
@@ -47,7 +47,7 @@ public class ResumeUsecase implements IUsecaseCommon<ResumeDto> {
     public ResumeDto recoveryRecord(UUID uuid){
         var response = this.resumeAdapter.recoveryByUuid(uuid);
 
-        return this.resumeMapper.toResumeDto(response);
+        return this.resumeMapper.toDto(response);
     }
 
     public void removeRecord(UUID uuid){

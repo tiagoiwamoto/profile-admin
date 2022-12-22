@@ -3,7 +3,6 @@ package br.com.tiagoiwamoto.profileadmin.core.usecase.impl;
 import br.com.tiagoiwamoto.profileadmin.adapter.ImageAndThumbAdapter;
 import br.com.tiagoiwamoto.profileadmin.adapter.dto.ImageDto;
 import br.com.tiagoiwamoto.profileadmin.adapter.impl.ScholarityAdapter;
-import br.com.tiagoiwamoto.profileadmin.core.domain.ScholarityDomain;
 import br.com.tiagoiwamoto.profileadmin.core.mapper.ScholarityMapper;
 import br.com.tiagoiwamoto.profileadmin.core.usecase.IUsecaseWithFile;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.ScholarityDto;
@@ -48,17 +47,17 @@ public class ScholarityUsecase implements IUsecaseWithFile<ScholarityDto> {
         }
         scholarityDto.setPathOfImage(imageDto.getPathOfImage());
         scholarityDto.setPathOfImageThumb(imageDto.getPathOfThumb());
-        var scholarityDomain = this.scholarityMapper.toProfileDomain(scholarityDto);
+        var scholarityDomain = this.scholarityMapper.toDomain(scholarityDto);
         scholarityDomain.createOrUpdate();
         var response = this.scholarityAdapter.save(scholarityDomain);
-        return this.scholarityMapper.toProfileDto(response);
+        return this.scholarityMapper.toDto(response);
     }
 
     public List<ScholarityDto> recoveryRecords(){
         var response = this.scholarityAdapter.all();
         var listOfScholarities = response
                 .stream()
-                .map(scholarity -> this.scholarityMapper.toProfileDto(scholarity))
+                .map(scholarity -> this.scholarityMapper.toDto(scholarity))
                 .collect(Collectors.toList());
 
         return listOfScholarities;
@@ -66,7 +65,7 @@ public class ScholarityUsecase implements IUsecaseWithFile<ScholarityDto> {
 
     public ScholarityDto recoveryRecord(UUID uuid){
         var response = this.scholarityAdapter.recoveryByUuid(uuid);
-        return this.scholarityMapper.toProfileDto(response);
+        return this.scholarityMapper.toDto(response);
     }
 
     public void removeRecord(UUID uuid){

@@ -3,7 +3,9 @@ package br.com.tiagoiwamoto.profileadmin.core.mapper;
 import br.com.tiagoiwamoto.profileadmin.core.domain.ExperienceDomain;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.ExperienceDto;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ExperienceMapper {
 
     public ExperienceDomain toDomain(ExperienceDto experienceDto){

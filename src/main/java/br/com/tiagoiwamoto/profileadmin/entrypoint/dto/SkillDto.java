@@ -8,13 +8,9 @@ import java.util.UUID;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SkillDto {
+public class SkillDto extends AbstractDto{
 
-    private Long id;
-    private UUID uuid;
     private String category;
     private String habilities;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
 }

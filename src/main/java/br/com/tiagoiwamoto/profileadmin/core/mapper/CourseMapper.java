@@ -4,7 +4,9 @@ import br.com.tiagoiwamoto.profileadmin.core.domain.CourseDomain;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.CourseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
+@Component
 @RequiredArgsConstructor
 public class CourseMapper {
 

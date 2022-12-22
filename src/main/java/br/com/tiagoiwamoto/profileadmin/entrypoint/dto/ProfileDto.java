@@ -9,10 +9,8 @@ import java.util.UUID;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProfileDto {
+public class ProfileDto extends AbstractDto{
 
-    private Long id;
-    private UUID uuid;
     private String name;
     private String title;
     private String subTitle;
@@ -20,7 +18,5 @@ public class ProfileDto {
     private String phone;
     private Boolean isActive;
     private String description;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
 }

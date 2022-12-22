@@ -10,10 +10,8 @@ import java.util.UUID;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CourseDto {
+public class CourseDto extends AbstractDtoWithImage{
 
-    private Long id;
-    private UUID uuid;
     private String name;
     private String school;
     private Integer duration;
@@ -21,10 +19,6 @@ public class CourseDto {
     private LocalDate startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
-    private String pathOfImage;
-    private String pathOfImageThumb;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
     private CourseCategoryDto courseCategory;
     private UUID courseCategoryUuid;
 

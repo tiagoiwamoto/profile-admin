@@ -3,7 +3,9 @@ package br.com.tiagoiwamoto.profileadmin.core.mapper;
 import br.com.tiagoiwamoto.profileadmin.core.domain.ProjectDomain;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.ProjectDto;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProjectMapper {
 
     public ProjectDomain toDomain(ProjectDto projectDto){
