@@ -4,7 +4,6 @@ import br.com.tiagoiwamoto.profileadmin.adapter.ImageAndThumbAdapter;
 import br.com.tiagoiwamoto.profileadmin.adapter.dto.ImageDto;
 import br.com.tiagoiwamoto.profileadmin.adapter.impl.CourseAdapter;
 import br.com.tiagoiwamoto.profileadmin.adapter.impl.CourseCategoryAdapter;
-import br.com.tiagoiwamoto.profileadmin.core.domain.CourseDomain;
 import br.com.tiagoiwamoto.profileadmin.core.mapper.CourseMapper;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.CourseDto;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +21,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class CourseUsecase {
+
 
     private final CourseAdapter courseAdapter;
     private final CourseCategoryAdapter courseCategoryAdapter;

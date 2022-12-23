@@ -6,7 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExperienceMapper {
+public class ExperienceMapper implements IMapper<ExperienceDomain, ExperienceDto>{
 
     public ExperienceDomain toDomain(ExperienceDto experienceDto){
         ExperienceDomain experienceDomain = new ExperienceDomain();

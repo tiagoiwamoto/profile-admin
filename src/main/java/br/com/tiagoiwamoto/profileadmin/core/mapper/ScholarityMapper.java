@@ -6,7 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ScholarityMapper {
+public class ScholarityMapper implements IMapper<ScholarityDomain, ScholarityDto>{
 
     public ScholarityDomain toDomain(ScholarityDto scholarityDto){
         ScholarityDomain scholarityDomain = new ScholarityDomain();

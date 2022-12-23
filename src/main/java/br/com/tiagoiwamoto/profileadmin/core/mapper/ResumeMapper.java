@@ -6,7 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ResumeMapper {
+public class ResumeMapper implements IMapper<ResumeDomain, ResumeDto>{
 
     public ResumeDomain toDomain(ResumeDto resumeDto){
         ResumeDomain resumeDomain = new ResumeDomain();

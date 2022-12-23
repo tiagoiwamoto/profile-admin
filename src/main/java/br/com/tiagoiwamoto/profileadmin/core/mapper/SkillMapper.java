@@ -6,7 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SkillMapper {
+public class SkillMapper implements IMapper<SkillDomain, SkillDto>{
 
     public SkillDomain toDomain(SkillDto skillDto){
         SkillDomain skillDomain = new SkillDomain();

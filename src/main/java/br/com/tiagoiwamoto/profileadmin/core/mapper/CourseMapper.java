@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CourseMapper {
+public class CourseMapper implements IMapper<CourseDomain, CourseDto>{
 
     private final CourseCategoryMapper courseCategoryMapper;
 

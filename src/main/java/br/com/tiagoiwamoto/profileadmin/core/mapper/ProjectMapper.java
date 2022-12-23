@@ -6,7 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProjectMapper {
+public class ProjectMapper implements IMapper<ProjectDomain, ProjectDto>{
 
     public ProjectDomain toDomain(ProjectDto projectDto){
         ProjectDomain projectDomain = new ProjectDomain();

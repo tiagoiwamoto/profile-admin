@@ -6,7 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SoftwareMapper {
+public class SoftwareMapper implements IMapper<SoftwareDomain, SoftwareDto>{
 
     public SoftwareDomain toDomain(SoftwareDto softwareDto){
         SoftwareDomain softwareDomain = new SoftwareDomain();

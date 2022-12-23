@@ -6,7 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProfileMapper {
+public class ProfileMapper implements IMapper<ProfileDomain, ProfileDto>{
 
     public ProfileDomain toDomain(ProfileDto profileDto){
         ProfileDomain profileDomain = new ProfileDomain();
