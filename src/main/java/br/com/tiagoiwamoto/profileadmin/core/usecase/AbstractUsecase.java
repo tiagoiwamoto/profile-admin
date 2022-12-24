@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public abstract class AbstractUsecase implements IUsecaseCommon<AbstractDto>{
+public abstract class AbstractUsecase implements IUsecaseCreateUpdate<AbstractDto> {
 
     private IAdapter<AbstractDomain> adapter;
     private IMapper<AbstractDomain, AbstractDto> mapper;

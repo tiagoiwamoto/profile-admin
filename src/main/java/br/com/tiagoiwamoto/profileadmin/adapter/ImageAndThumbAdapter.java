@@ -55,22 +55,24 @@ public class ImageAndThumbAdapter {
 
     public void removeFiles(Path path, String originalFileName, String thumbnail){
         try{
-            log.info("iniciando remoção do arquivo");
+            log.info(String.format("iniciando remoção de arquivos para o path: %s", path));
             Files.delete(new File(path.toString().concat(File.separator).concat(originalFileName)).toPath());
             Files.delete(new File(path.toString().concat(File.separator).concat(thumbnail)).toPath());
             Files.delete(new File(path.toString()).toPath());
             log.info(String.format("arquivos foram removidos com sucesso do path %s", path));
         }catch (NoSuchFileException e){
-            log.error("arquivo não foi localizado !");
+            log.error(String.format("arquivo não foi localizado no path %s", path));
         }catch (Exception e){
+            log.error(String.format("falha ao remover arquivos para o path %s", path), e);
             throw new RuntimeException(e);
         }
     }
 
     public ImageDto validUpdateOfImage(Path path, MultipartFile multipartFile, AbstractDomainWithImage adwi){
+        log.info(String.format("validando se uma imagem sera armazenada ou substituida para o path: %s", path));
         ImageDto imageDto;
         if(!Objects.isNull(multipartFile)){
-            log.info("imagem será substituida por uma nova !");
+            log.info(String.format("imagem será substituida por uma nova no path: %s", path));
             imageDto = this.replaceImage(
                     multipartFile,
                     path,
@@ -79,6 +81,7 @@ public class ImageAndThumbAdapter {
             );
         }else{
             log.info("nenhuma nova imagem foi enviada");
+            log.info(String.format("nenhuma nova imagem foi enviada para o path: %s", path));
             imageDto = new ImageDto(adwi.getPathOfImage(), adwi.getPathOfImageThumb());
         }
         return imageDto;

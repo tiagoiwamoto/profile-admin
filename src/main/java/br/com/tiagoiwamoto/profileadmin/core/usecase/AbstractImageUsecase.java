@@ -63,8 +63,8 @@ public abstract class AbstractImageUsecase implements IUsecaseWithFile<AbstractD
 
     }
 
-
     public List<AbstractDtoWithImage> recoveryRecords(){
+        log.info(String.format("recuperando registros para %s", PATH));
         var response = this.adapter.all();
         var listOfRecordsDtos = response
                 .stream()
@@ -72,20 +72,23 @@ public abstract class AbstractImageUsecase implements IUsecaseWithFile<AbstractD
                         record ->
                                 this.mapper.toDto(record))
                 .collect(Collectors.toList());
-
+        log.info(String.format("registros recuperados e convertidos para %s, resultado: %s", PATH, listOfRecordsDtos));
         return listOfRecordsDtos;
     }
 
     public AbstractDtoWithImage recoveryRecord(UUID uuid){
+        log.info(String.format("procurando registro: %s para: %s", uuid, PATH));
         var response = this.adapter.recoveryByUuid(uuid);
-
+        log.info(String.format("registro encontrado: %s para: %s", response, PATH));
         return this.mapper.toDto(response);
     }
 
     public void removeRecord(UUID uuid){
+        log.info(String.format("removendo registro: %s para: %s", uuid, PATH));
         Path path = Paths.get(PATH.concat(uuid.toString()));
         var record = this.adapter.recoveryByUuid(uuid);
         this.adapter.delete(uuid);
+        log.info(String.format("registro removido com sucesso para: %s", PATH));
         this.imageAndThumbAdapter.removeFiles(path, record.getPathOfImage(), record.getPathOfImageThumb());
     }
 }

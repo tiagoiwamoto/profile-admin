@@ -22,7 +22,6 @@ public class CourseAdapter extends AbstractAdapter<CourseDomain> {
     }
 
     public List<CourseDomain> all(CourseCategoryDomain courseCategoryDomain){
-
         log.info(String.format("iniciando busca: metodo: all(), para o dominio: %s", domain));
         try{
             var response = this.repository.findAllByCourseCategory(courseCategoryDomain);

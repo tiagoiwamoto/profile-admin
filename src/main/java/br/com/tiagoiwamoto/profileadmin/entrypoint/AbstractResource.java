@@ -1,6 +1,6 @@
 package br.com.tiagoiwamoto.profileadmin.entrypoint;
 
-import br.com.tiagoiwamoto.profileadmin.core.usecase.IUsecaseCommon;
+import br.com.tiagoiwamoto.profileadmin.core.usecase.IUsecaseCreateUpdate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +15,10 @@ import java.util.UUID;
 
 public abstract class AbstractResource<T> {
 
-    private IUsecaseCommon<T> usecase;
+    private IUsecaseCreateUpdate<T> usecase;
     private String path;
 
-    public AbstractResource(IUsecaseCommon<T> usecase, String path) {
+    public AbstractResource(IUsecaseCreateUpdate<T> usecase, String path) {
         this.usecase = usecase;
         this.path = path;
     }
