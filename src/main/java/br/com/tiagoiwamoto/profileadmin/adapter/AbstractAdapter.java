@@ -1,6 +1,9 @@
 package br.com.tiagoiwamoto.profileadmin.adapter;
 
 import br.com.tiagoiwamoto.profileadmin.core.exceptions.RecordNotFoundException;
+import br.com.tiagoiwamoto.profileadmin.core.exceptions.RecordRecoveryException;
+import br.com.tiagoiwamoto.profileadmin.core.exceptions.RecordRemoveException;
+import br.com.tiagoiwamoto.profileadmin.core.exceptions.RecordSaveException;
 import br.com.tiagoiwamoto.profileadmin.core.repository.IRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +34,7 @@ public abstract class AbstractAdapter<T> implements IAdapter<T>{
                     "Falha ao realizar consulta no dominio %s",
                     domain),
                     e);
-            throw new RuntimeException(e);
+            throw new RecordRecoveryException();
         }
     }
 
@@ -48,7 +51,7 @@ public abstract class AbstractAdapter<T> implements IAdapter<T>{
                             "Falha ao gravar o dominio %s",
                             domain),
                     e);
-            throw new RuntimeException(e);
+            throw new RecordSaveException();
         }
     }
 
@@ -66,7 +69,7 @@ public abstract class AbstractAdapter<T> implements IAdapter<T>{
                             "Falha ao realizar consulta no dominio %s para o uuid: %s",
                             domain, uuid),
                     e);
-            throw new RuntimeException(e);
+            throw new RecordRecoveryException();
         }
     }
 
@@ -83,7 +86,7 @@ public abstract class AbstractAdapter<T> implements IAdapter<T>{
                             "Falha ao remover o registro %s do dominio %s",
                             uuid, domain),
                     e);
-            throw new RuntimeException(e);
+            throw new RecordRemoveException();
         }
     }
 }

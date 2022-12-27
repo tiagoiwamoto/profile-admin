@@ -2,6 +2,8 @@ package br.com.tiagoiwamoto.profileadmin.adapter;
 
 import br.com.tiagoiwamoto.profileadmin.adapter.dto.ImageDto;
 import br.com.tiagoiwamoto.profileadmin.core.domain.AbstractDomainWithImage;
+import br.com.tiagoiwamoto.profileadmin.core.exceptions.ImageRemoveException;
+import br.com.tiagoiwamoto.profileadmin.core.exceptions.ImageStoreException;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.io.FilenameUtils;
@@ -44,7 +46,7 @@ public class ImageAndThumbAdapter {
         } catch (Exception e){
             log.error("não foi possível transferir a imagem");
             this.removeFiles(path, originalFileName, thumbnail);
-            throw new RuntimeException(e);
+            throw new ImageStoreException(e);
         }
     }
 
@@ -64,7 +66,7 @@ public class ImageAndThumbAdapter {
             log.error(String.format("arquivo não foi localizado no path %s", path));
         }catch (Exception e){
             log.error(String.format("falha ao remover arquivos para o path %s", path), e);
-            throw new RuntimeException(e);
+            throw new ImageRemoveException(e);
         }
     }
 

@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class AbstractResource<T> {
+public abstract class AbstractResource<T> implements IResource<T>{
 
     private IUsecaseCreateUpdate<T> usecase;
     private String path;
@@ -30,7 +31,7 @@ public abstract class AbstractResource<T> {
 
     @PostMapping
     public ResponseEntity<T> create(
-            @RequestBody T record){
+            @Valid @RequestBody T record){
 
         var response = this.usecase.createOrUpdate(record);
         return ResponseEntity.created(URI.create(this.path))
@@ -46,12 +47,12 @@ public abstract class AbstractResource<T> {
     }
 
     @GetMapping(path = "/{uuid}")
-    public ResponseEntity<T> recoveryScholarity(@PathVariable(name = "uuid") UUID uuid){
+    public ResponseEntity<T> recoveryRecord(@PathVariable(name = "uuid") UUID uuid){
         return ResponseEntity.ok().body(this.usecase.recoveryRecord(uuid));
     }
 
     @DeleteMapping(path = "/{uuid}")
-    public ResponseEntity removeScholarity(@PathVariable(name = "uuid") UUID uuid){
+    public ResponseEntity removeRecord(@PathVariable(name = "uuid") UUID uuid){
         this.usecase.removeRecord(uuid);
         return ResponseEntity.noContent().build();
     }

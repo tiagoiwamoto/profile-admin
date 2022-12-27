@@ -3,6 +3,7 @@ package br.com.tiagoiwamoto.profileadmin.adapter.impl;
 import br.com.tiagoiwamoto.profileadmin.adapter.AbstractAdapter;
 import br.com.tiagoiwamoto.profileadmin.core.domain.CourseCategoryDomain;
 import br.com.tiagoiwamoto.profileadmin.core.domain.CourseDomain;
+import br.com.tiagoiwamoto.profileadmin.core.exceptions.RecordRecoveryException;
 import br.com.tiagoiwamoto.profileadmin.core.repository.CourseRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class CourseAdapter extends AbstractAdapter<CourseDomain> {
                             "Falha ao realizar consulta no dominio %s",
                             domain),
                     e);
-            throw new RuntimeException(e);
+            throw new RecordRecoveryException();
         }
     }
 

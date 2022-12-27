@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class AbstractResourceForFile<T> {
+public abstract class AbstractResourceForFile<T> implements IResourceWithFile<T> {
 
     private IUsecaseWithFile<T> usecase;
     private String path;
@@ -31,7 +32,7 @@ public abstract class AbstractResourceForFile<T> {
 
     @PostMapping
     public ResponseEntity<T> create(
-            T record,
+            @Valid T record,
             @RequestParam(name = "file") MultipartFile multipartFile){
 
         var response = this.usecase.createOrUpdate(record, multipartFile);
@@ -41,7 +42,7 @@ public abstract class AbstractResourceForFile<T> {
 
     @PutMapping
     public ResponseEntity<T> update(
-            T record,
+            @Valid T record,
             @RequestParam(name = "file", required = false) MultipartFile multipartFile){
 
         var response = this.usecase.createOrUpdate(record, multipartFile);
@@ -49,12 +50,12 @@ public abstract class AbstractResourceForFile<T> {
     }
 
     @GetMapping(path = "/{uuid}")
-    public ResponseEntity<T> recoveryScholarity(@PathVariable(name = "uuid") UUID uuid){
+    public ResponseEntity<T> recoveryRecord(@PathVariable(name = "uuid") UUID uuid){
         return ResponseEntity.ok().body(this.usecase.recoveryRecord(uuid));
     }
 
     @DeleteMapping(path = "/{uuid}")
-    public ResponseEntity removeScholarity(@PathVariable(name = "uuid") UUID uuid){
+    public ResponseEntity removeRecord(@PathVariable(name = "uuid") UUID uuid){
         this.usecase.removeRecord(uuid);
         return ResponseEntity.noContent().build();
     }

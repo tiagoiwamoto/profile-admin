@@ -2,6 +2,7 @@ package br.com.tiagoiwamoto.profileadmin.adapter.impl;
 
 import br.com.tiagoiwamoto.profileadmin.adapter.AbstractAdapter;
 import br.com.tiagoiwamoto.profileadmin.core.domain.ProfileDomain;
+import br.com.tiagoiwamoto.profileadmin.core.exceptions.RecordSaveException;
 import br.com.tiagoiwamoto.profileadmin.core.repository.ProfileRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -55,7 +56,7 @@ public class ProfileAdapter extends AbstractAdapter<ProfileDomain> {
                             "Falha ao gravar o dominio %s",
                             domain),
                     e);
-            throw new RuntimeException(e);
+            throw new RecordSaveException();
         }
     }
 
