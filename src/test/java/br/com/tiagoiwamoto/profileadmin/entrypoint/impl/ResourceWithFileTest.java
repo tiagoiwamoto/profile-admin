@@ -22,7 +22,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -72,10 +71,11 @@ class ResourceWithFileTest {
 
     @Test
     @DisplayName(value = "Consulta de registro pelo seu UUID")
-    public void testRecoveryByUuid(){
+    public void testRecoveryByUuid() {
         this.testsFactories.forEach(test -> {
             log.info("Teste em execução testRecoveryByUuid() para: ".concat(test.getResourceWithFile().getClass().getSimpleName()));
-            Mockito.when(test.getUsecaseWithFile().recoveryRecord(Mockito.any())).thenReturn(new AbstractDtoWithImage());
+            var response = this.convertObjectToClass(test.getFileName().concat("-response"), test.getClassToSerialize());
+            Mockito.when(test.getUsecaseWithFile().recoveryRecord(Mockito.any())).thenReturn(response);
             var responseRecovery = (ResponseEntity<AbstractDtoWithImage>)test.getResourceWithFile().recoveryRecord(UUID.randomUUID());
             Assertions.assertEquals(HttpStatus.OK , responseRecovery.getStatusCode());
         });
@@ -86,14 +86,11 @@ class ResourceWithFileTest {
     public void testCreate(){
         this.testsFactories.forEach(test -> {
             log.info("Teste em execução testCreate() para: ".concat(test.getUsecaseWithFile().getClass().getSimpleName()));
-            try {
-                var request = this.convert(test.getFileName(), test.getClassToSerialize());
-                Mockito.when(test.getUsecaseWithFile().createOrUpdate(Mockito.any(), Mockito.any())).thenReturn(request);
-                var responseRecovery = test.getResourceWithFile().create(request, new MockMultipartFile("meu-arquivo.png", "".getBytes()));
-                Assertions.assertEquals(HttpStatus.CREATED , responseRecovery.getStatusCode());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            var request = this.convertObjectToClass(test.getFileName().concat("-request"), test.getClassToSerialize());
+            var response = this.convertObjectToClass(test.getFileName().concat("-response"), test.getClassToSerialize());
+            Mockito.when(test.getUsecaseWithFile().createOrUpdate(Mockito.any(), Mockito.any())).thenReturn(response);
+            var responseRecovery = test.getResourceWithFile().create(request, new MockMultipartFile("meu-arquivo.png", "".getBytes()));
+            Assertions.assertEquals(HttpStatus.CREATED , responseRecovery.getStatusCode());
         });
     }
 
@@ -102,14 +99,11 @@ class ResourceWithFileTest {
     public void testUpdate(){
         this.testsFactories.forEach(test -> {
             log.info("Teste em execução testUpdate() para: ".concat(test.getUsecaseWithFile().getClass().getSimpleName()));
-            try {
-                var request = this.convert(test.getFileName().concat("-update"), test.getClassToSerialize());
-                Mockito.when(test.getUsecaseWithFile().createOrUpdate(Mockito.any(), Mockito.any())).thenReturn(request);
-                var responseRecovery = test.getResourceWithFile().update(request, new MockMultipartFile("meu-arquivo.png", "".getBytes()));
-                Assertions.assertEquals(HttpStatus.OK , responseRecovery.getStatusCode());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            var request = this.convertObjectToClass(test.getFileName().concat("-update-request"), test.getClassToSerialize());
+            var response = this.convertObjectToClass(test.getFileName().concat("-response"), test.getClassToSerialize());
+            Mockito.when(test.getUsecaseWithFile().createOrUpdate(Mockito.any(), Mockito.any())).thenReturn(response);
+            var responseRecovery = test.getResourceWithFile().update(request, new MockMultipartFile("meu-arquivo.png", "".getBytes()));
+            Assertions.assertEquals(HttpStatus.OK , responseRecovery.getStatusCode());
         });
     }
 
@@ -124,12 +118,17 @@ class ResourceWithFileTest {
         });
     }
 
-    private AbstractDtoWithImage convert(String fileName, Class clazz) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.findAndRegisterModules();
-        var file = Files.readString(Path.of(String.format("src/test/resources/%s-request.json", fileName)));
-        var dtoObject = (AbstractDtoWithImage) mapper.readValue(file, clazz);
-        return dtoObject;
+    private AbstractDtoWithImage convertObjectToClass(String fileName, Class clazz) {
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.findAndRegisterModules();
+            var file = Files.readString(Path.of(String.format("src/test/resources/%s.json", fileName)));
+            var dtoObject = (AbstractDtoWithImage) mapper.readValue(file, clazz);
+            return dtoObject;
+        }catch (Exception e){
+            log.error("Falha ao converter objeto :" + fileName);
+            return null;
+        }
     }
 
 }

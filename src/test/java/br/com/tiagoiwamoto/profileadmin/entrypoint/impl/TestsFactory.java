@@ -1,8 +1,10 @@
 package br.com.tiagoiwamoto.profileadmin.entrypoint.impl;
 
 import br.com.tiagoiwamoto.profileadmin.core.usecase.IUsecase;
+import br.com.tiagoiwamoto.profileadmin.core.usecase.IUsecaseCreateUpdate;
 import br.com.tiagoiwamoto.profileadmin.core.usecase.IUsecaseWithFile;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.IResource;
+import br.com.tiagoiwamoto.profileadmin.entrypoint.IResourceCreateUpdate;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.IResourceWithFile;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.AbstractDtoWithImage;
 import lombok.Data;
@@ -10,9 +12,9 @@ import lombok.Data;
 @Data
 public class TestsFactory {
 
-    private IUsecase usecase;
+    private IUsecaseCreateUpdate usecase;
     private IUsecaseWithFile usecaseWithFile;
-    private IResource resource;
+    private IResourceCreateUpdate resource;
     private IResourceWithFile resourceWithFile;
 
     private AbstractDtoWithImage response;
@@ -20,7 +22,7 @@ public class TestsFactory {
     private Class classToSerialize;
     private String fileName;
 
-    public TestsFactory(IUsecase usecase, IResource resource, String fileName, Class classToSerialize) {
+    public TestsFactory(IUsecaseCreateUpdate usecase, IResourceCreateUpdate resource, String fileName, Class classToSerialize) {
         this.usecase = usecase;
         this.resource = resource;
         this.fileName = fileName;

@@ -14,7 +14,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class AbstractResource<T> implements IResource<T>{
+public abstract class AbstractResource<T> implements IResourceCreateUpdate<T>{
 
     private IUsecaseCreateUpdate<T> usecase;
     private String path;

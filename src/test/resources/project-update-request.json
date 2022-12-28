@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "uuid": "3fbdd9d7-038c-4f73-9695-4fe22b8f8334",
+  "name": "name",
+  "description": "description",
+  "url": "https://google.com.br",
+  "createdAt": "2022-01-01T10:00:00.000",
+  "updatedAt": "2022-01-01T10:00:00.000"
+}
