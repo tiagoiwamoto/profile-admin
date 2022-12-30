@@ -50,12 +50,12 @@ public class CourseResource {
     }
 
     @GetMapping(path = "/course/{uuid}")
-    public ResponseEntity<CourseDto> recoveryScholarity(@PathVariable(name = "uuid") UUID uuid){
+    public ResponseEntity<CourseDto> recoveryRecord(@PathVariable(name = "uuid") UUID uuid){
         return ResponseEntity.ok().body(this.courseUsecase.recoveryRecord(uuid));
     }
 
     @DeleteMapping(path = "/{uuid}")
-    public ResponseEntity removeScholarity(@PathVariable(name = "uuid") UUID uuid){
+    public ResponseEntity removeRecord(@PathVariable(name = "uuid") UUID uuid){
         this.courseUsecase.removeRecord(uuid);
         return ResponseEntity.noContent().build();
     }

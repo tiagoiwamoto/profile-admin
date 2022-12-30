@@ -1,12 +1,11 @@
 package br.com.tiagoiwamoto.profileadmin.entrypoint.impl;
 
-import br.com.tiagoiwamoto.profileadmin.core.usecase.IUsecase;
+import br.com.tiagoiwamoto.profileadmin.adapter.IAdapter;
+import br.com.tiagoiwamoto.profileadmin.core.mapper.IMapper;
 import br.com.tiagoiwamoto.profileadmin.core.usecase.IUsecaseCreateUpdate;
 import br.com.tiagoiwamoto.profileadmin.core.usecase.IUsecaseWithFile;
-import br.com.tiagoiwamoto.profileadmin.entrypoint.IResource;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.IResourceCreateUpdate;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.IResourceWithFile;
-import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.AbstractDtoWithImage;
 import lombok.Data;
 
 @Data
@@ -16,10 +15,10 @@ public class TestsFactory {
     private IUsecaseWithFile usecaseWithFile;
     private IResourceCreateUpdate resource;
     private IResourceWithFile resourceWithFile;
-
-    private AbstractDtoWithImage response;
-    private AbstractDtoWithImage request;
+    private IAdapter iAdapter;
+    private IMapper iMapper;
     private Class classToSerialize;
+    private Class classToSerializeDomain;
     private String fileName;
 
     public TestsFactory(IUsecaseCreateUpdate usecase, IResourceCreateUpdate resource, String fileName, Class classToSerialize) {
@@ -34,5 +33,23 @@ public class TestsFactory {
         this.resourceWithFile = resourceWithFile;
         this.fileName = fileName;
         this.classToSerialize = classToSerialize;
+    }
+
+    public TestsFactory(IUsecaseWithFile usecaseWithFile, IAdapter iAdapter, IMapper iMapper, String fileName, Class classToSerialize, Class classToSerializeDomain) {
+        this.iAdapter = iAdapter;
+        this.iMapper = iMapper;
+        this.usecaseWithFile = usecaseWithFile;
+        this.fileName = fileName;
+        this.classToSerialize = classToSerialize;
+        this.classToSerializeDomain = classToSerializeDomain;
+    }
+
+    public TestsFactory(IUsecaseCreateUpdate usecaseCreateUpdate, IAdapter iAdapter, IMapper iMapper, String fileName, Class classToSerialize, Class classToSerializeDomain) {
+        this.iAdapter = iAdapter;
+        this.iMapper = iMapper;
+        this.usecase = usecaseCreateUpdate;
+        this.fileName = fileName;
+        this.classToSerialize = classToSerialize;
+        this.classToSerializeDomain = classToSerializeDomain;
     }
 }

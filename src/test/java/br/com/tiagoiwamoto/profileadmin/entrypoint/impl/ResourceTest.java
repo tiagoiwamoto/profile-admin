@@ -1,25 +1,12 @@
 package br.com.tiagoiwamoto.profileadmin.entrypoint.impl;
 
-import br.com.tiagoiwamoto.profileadmin.core.usecase.impl.CertificationUsecase;
-import br.com.tiagoiwamoto.profileadmin.core.usecase.impl.CourseCategoryUsecase;
-import br.com.tiagoiwamoto.profileadmin.core.usecase.impl.ExperienceUsecase;
-import br.com.tiagoiwamoto.profileadmin.core.usecase.impl.ProfileUsecase;
-import br.com.tiagoiwamoto.profileadmin.core.usecase.impl.ProjectUsecase;
-import br.com.tiagoiwamoto.profileadmin.core.usecase.impl.ResumeUsecase;
-import br.com.tiagoiwamoto.profileadmin.core.usecase.impl.ScholarityUsecase;
-import br.com.tiagoiwamoto.profileadmin.core.usecase.impl.SkillUsecase;
-import br.com.tiagoiwamoto.profileadmin.core.usecase.impl.SoftwareUsecase;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.AbstractDto;
-import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.AbstractDtoWithImage;
-import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.CertificationDto;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.CourseCategoryDto;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.ExperienceDto;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.ProfileDto;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.ProjectDto;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.ResumeDto;
-import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.ScholarityDto;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.SkillDto;
-import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.SoftwareDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -27,12 +14,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.nio.file.Files;
@@ -43,33 +27,7 @@ import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
 @Slf4j
-class ResourceTest {
-
-    @InjectMocks
-    private CourseCategoryResource courseCategoryResource;
-    @InjectMocks
-    private ExperienceResource experienceResource;
-    @InjectMocks
-    private ProfileResource profileResource;
-    @InjectMocks
-    private ProjectResource projectResource;
-    @InjectMocks
-    private ResumeResource resumeResource;
-    @InjectMocks
-    private SkillResource skillResource;
-    @Mock
-    private CourseCategoryUsecase courseCategoryUsecase;
-    @Mock
-    private ExperienceUsecase experienceUsecase;
-    @Mock
-    private ProfileUsecase profileUsecase;
-    @Mock
-    private ProjectUsecase projectUsecase;
-    @Mock
-    private ResumeUsecase resumeUsecase;
-    @Mock
-    private SkillUsecase skillUsecase;
-    private List<TestsFactory> testsFactories;
+class ResourceTest extends ResourceAutoInjectBean{
 
     @BeforeEach
     public void init(){

@@ -37,14 +37,14 @@ public class CourseUsecase {
         ImageDto imageDto;
         if(Objects.isNull(courseDto.getId())){
             log.info("courseUsecase createOrUpdate -> será criado um novo registro");
-            UUID scholarityUuid = UUID.randomUUID();
+            UUID courseUuid = UUID.randomUUID();
             path = Paths.get(PATH
                     .concat(courseDto.getCourseCategoryUuid().toString())
                     .concat("/")
-                    .concat(scholarityUuid.toString())
+                    .concat(courseUuid.toString())
             );
             imageDto = this.imageAndThumbAdapter.storeImage(multipartFile, path);
-            courseDto.setUuid(scholarityUuid);
+            courseDto.setUuid(courseUuid);
         }else{
             log.info("courseUsecase createOrUpdate -> será atualizado o registro");
             path = Paths.get(PATH

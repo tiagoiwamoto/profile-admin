@@ -1,14 +1,17 @@
 {
   "id": 1,
   "uuid": "3fbdd9d7-038c-4f73-9695-4fe22b8f8334",
-  "schoolName": "schoolName",
-  "courseName": "courseName",
-  "titleReceivedCourse": "titleReceivedCourse",
+  "name": "name",
+  "school": "school",
   "duration": 100,
   "startDate": "2022-01-01",
-  "dateOfConclusion": "2022-12-01",
+  "endDate": "2022-12-01",
   "pathOfImage": "/image",
   "pathOfImageThumb": "/thumb",
   "createdAt": "2022-01-01T10:00:00.000",
-  "updatedAt": "2022-01-01T10:00:00.000"
+  "updatedAt": "2022-01-01T10:00:00.000",
+  "courseCategory": {
+    "id": 1,
+    "uuid": "3fbdd9d7-038c-4f73-9695-4fe22b8f8334"
+  }
 }

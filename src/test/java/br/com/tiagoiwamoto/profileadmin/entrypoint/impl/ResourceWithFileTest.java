@@ -1,8 +1,5 @@
 package br.com.tiagoiwamoto.profileadmin.entrypoint.impl;
 
-import br.com.tiagoiwamoto.profileadmin.core.usecase.impl.CertificationUsecase;
-import br.com.tiagoiwamoto.profileadmin.core.usecase.impl.ScholarityUsecase;
-import br.com.tiagoiwamoto.profileadmin.core.usecase.impl.SoftwareUsecase;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.AbstractDtoWithImage;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.CertificationDto;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.ScholarityDto;
@@ -14,8 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,21 +25,7 @@ import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
 @Slf4j
-class ResourceWithFileTest {
-
-    @InjectMocks
-    private CertificationResource certificationResource;
-    @InjectMocks
-    private ScholarityResource scholarityResource;
-    @InjectMocks
-    private SoftwareResource softwareResource;
-    @Mock
-    private CertificationUsecase certificationUsecase;
-    @Mock
-    private ScholarityUsecase scholarityUsecase;
-    @Mock
-    private SoftwareUsecase softwareUsecase;
-    private List<TestsFactory> testsFactories;
+class ResourceWithFileTest extends ResourceAutoInjectBean{
 
     @BeforeEach
     public void init(){
@@ -98,6 +79,7 @@ class ResourceWithFileTest {
     @DisplayName(value = "Atualização de registro")
     public void testUpdate(){
         this.testsFactories.forEach(test -> {
+
             log.info("Teste em execução testUpdate() para: ".concat(test.getUsecaseWithFile().getClass().getSimpleName()));
             var request = this.convertObjectToClass(test.getFileName().concat("-update-request"), test.getClassToSerialize());
             var response = this.convertObjectToClass(test.getFileName().concat("-response"), test.getClassToSerialize());
