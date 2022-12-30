@@ -27,15 +27,15 @@ public class ProfileAdapter extends AbstractAdapter<ProfileDomain> {
     public ProfileDomain save(ProfileDomain profile) {
         log.info(String.format("iniciando gravação do registro %s", domain));
         try {
-            if (Objects.isNull(profile.getId())) {
-                log.info(String.format("registro novo a ser gravado para o dominio %s", domain));
-                profile.domainToSave();
-            } else {
-                log.info(String.format("registro a ser atualizado para o dominio %s", domain));
-                var oldProfile = this.recoveryByUuid(profile.getUuid());
-                log.info(String.format("registro a ser atualizado encontrado para o dominio %s", domain));
-                profile.domainToUpdate(oldProfile);
-            }
+//            if (Objects.isNull(profile.getId())) {
+//                log.info(String.format("registro novo a ser gravado para o dominio %s", domain));
+//                profile.domainToSave();
+//            } else {
+//                log.info(String.format("registro a ser atualizado para o dominio %s", domain));
+//                var oldProfile = this.recoveryByUuid(profile.getUuid());
+//                log.info(String.format("registro a ser atualizado encontrado para o dominio %s", domain));
+//                profile.domainToUpdate(oldProfile);
+//            }
 
             if (profile.getIsActive()) {
                 log.info(String.format("validação de registro ativo para o dominio %s", domain));

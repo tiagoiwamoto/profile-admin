@@ -2,6 +2,7 @@ package br.com.tiagoiwamoto.profileadmin.entrypoint.impl;
 
 import br.com.tiagoiwamoto.profileadmin.adapter.IAdapter;
 import br.com.tiagoiwamoto.profileadmin.core.mapper.IMapper;
+import br.com.tiagoiwamoto.profileadmin.core.repository.IRepository;
 import br.com.tiagoiwamoto.profileadmin.core.usecase.IUsecaseCreateUpdate;
 import br.com.tiagoiwamoto.profileadmin.core.usecase.IUsecaseWithFile;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.IResourceCreateUpdate;
@@ -19,6 +20,7 @@ public class TestsFactory {
     private IMapper iMapper;
     private Class classToSerialize;
     private Class classToSerializeDomain;
+    private IRepository repository;
     private String fileName;
 
     public TestsFactory(IUsecaseCreateUpdate usecase, IResourceCreateUpdate resource, String fileName, Class classToSerialize) {
@@ -51,5 +53,12 @@ public class TestsFactory {
         this.fileName = fileName;
         this.classToSerialize = classToSerialize;
         this.classToSerializeDomain = classToSerializeDomain;
+    }
+
+    public TestsFactory(IAdapter iAdapter, IRepository repository, Class classToSerializeDomain, String fileName) {
+        this.iAdapter = iAdapter;
+        this.repository = repository;
+        this.classToSerializeDomain = classToSerializeDomain;
+        this.fileName = fileName;
     }
 }
