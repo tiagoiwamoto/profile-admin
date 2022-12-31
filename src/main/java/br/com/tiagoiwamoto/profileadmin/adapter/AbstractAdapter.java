@@ -69,7 +69,7 @@ public abstract class AbstractAdapter<T> implements IAdapter<T>{
                             "Falha ao realizar consulta no dominio %s para o uuid: %s",
                             domain, uuid),
                     e);
-            throw new RecordRecoveryException();
+            throw new RecordNotFoundException();
         }
     }
 

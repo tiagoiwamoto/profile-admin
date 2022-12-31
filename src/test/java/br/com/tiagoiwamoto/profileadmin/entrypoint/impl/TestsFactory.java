@@ -61,4 +61,11 @@ public class TestsFactory {
         this.classToSerializeDomain = classToSerializeDomain;
         this.fileName = fileName;
     }
+
+    public TestsFactory(IMapper iMapper, Class classToSerialize, Class classToSerializeDomain, String fileName) {
+        this.iMapper = iMapper;
+        this.classToSerialize = classToSerialize;
+        this.classToSerializeDomain = classToSerializeDomain;
+        this.fileName = fileName;
+    }
 }

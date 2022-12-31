@@ -11,6 +11,7 @@ import br.com.tiagoiwamoto.profileadmin.core.domain.ResumeDomain;
 import br.com.tiagoiwamoto.profileadmin.core.domain.ScholarityDomain;
 import br.com.tiagoiwamoto.profileadmin.core.domain.SkillDomain;
 import br.com.tiagoiwamoto.profileadmin.core.domain.SoftwareDomain;
+import br.com.tiagoiwamoto.profileadmin.core.exceptions.RecordNotFoundException;
 import br.com.tiagoiwamoto.profileadmin.core.exceptions.RecordRecoveryException;
 import br.com.tiagoiwamoto.profileadmin.core.exceptions.RecordRemoveException;
 import br.com.tiagoiwamoto.profileadmin.core.exceptions.RecordSaveException;
@@ -106,7 +107,7 @@ class AbstractAdapterTest extends AdapterAutoInjectBean{
             Assertions.assertNotNull(result);
 
             Assertions.assertThrows(
-                    RecordRecoveryException.class, () -> test.getIAdapter().recoveryByUuid(UUID.randomUUID())
+                    RecordNotFoundException.class, () -> test.getIAdapter().recoveryByUuid(UUID.randomUUID())
             );
         });
     }

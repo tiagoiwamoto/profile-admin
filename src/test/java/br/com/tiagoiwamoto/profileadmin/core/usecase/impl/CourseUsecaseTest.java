@@ -107,7 +107,7 @@ class CourseUsecaseTest {
         Mockito.when(this.courseCategoryAdapter.recoveryByUuid(Mockito.any(UUID.class))).thenReturn(this.getCourseCategory());
         Mockito.when(this.courseAdapter.recoveryByUuid(Mockito.any(UUID.class))).thenReturn(response);
         Mockito.doNothing().when(this.courseAdapter).delete(Mockito.any(UUID.class));
-        Mockito.doNothing().when(this.imageAndThumbAdapter).removeFiles(Mockito.any(), Mockito.any(), Mockito.any());
+        Mockito.doNothing().when(this.imageAndThumbAdapter).removeFiles(Mockito.any());
         this.courseUsecase.removeRecord(UUID.randomUUID());
     }
 

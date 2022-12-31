@@ -89,6 +89,6 @@ public abstract class AbstractImageUsecase implements IUsecaseWithFile<AbstractD
         var record = this.adapter.recoveryByUuid(uuid);
         this.adapter.delete(uuid);
         log.info(String.format("registro removido com sucesso para: %s", PATH));
-        this.imageAndThumbAdapter.removeFiles(path, record.getPathOfImage(), record.getPathOfImageThumb());
+        this.imageAndThumbAdapter.removeFiles(path);
     }
 }

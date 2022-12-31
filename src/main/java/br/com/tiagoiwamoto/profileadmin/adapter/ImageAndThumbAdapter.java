@@ -12,8 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -45,46 +45,43 @@ public class ImageAndThumbAdapter {
             return new ImageDto(originalFileName, thumbnail);
         } catch (Exception e){
             log.error("não foi possível transferir a imagem");
-            this.removeFiles(path, originalFileName, thumbnail);
+            this.removeFiles(path);
             throw new ImageStoreException(e);
         }
     }
 
-    public ImageDto replaceImage(MultipartFile multipartFile, Path path, String originalFileName, String thumbnail){
-        this.removeFiles(path, originalFileName, thumbnail);
+    public ImageDto replaceImage(MultipartFile multipartFile, Path path){
+        this.removeFiles(path);
         return this.storeImage(multipartFile, path);
     }
 
-    public void removeFiles(Path path, String originalFileName, String thumbnail){
+    public void removeFiles(Path path){
         try{
             log.info(String.format("iniciando remoção de arquivos para o path: %s", path));
-            Files.delete(new File(path.toString().concat(File.separator).concat(originalFileName)).toPath());
-            Files.delete(new File(path.toString().concat(File.separator).concat(thumbnail)).toPath());
-            Files.delete(new File(path.toString()).toPath());
+            Files.walk(path)
+                    .sorted(Comparator.reverseOrder())
+                    .map(Path::toFile)
+                    .forEach(File::delete);
             log.info(String.format("arquivos foram removidos com sucesso do path %s", path));
-        }catch (NoSuchFileException e){
-            log.error(String.format("arquivo não foi localizado no path %s", path));
         }catch (Exception e){
             log.error(String.format("falha ao remover arquivos para o path %s", path), e);
             throw new ImageRemoveException(e);
         }
     }
 
-    public ImageDto validUpdateOfImage(Path path, MultipartFile multipartFile, AbstractDomainWithImage adwi){
+    public ImageDto validUpdateOfImage(Path path, MultipartFile multipartFile, AbstractDomainWithImage domain){
         log.info(String.format("validando se uma imagem sera armazenada ou substituida para o path: %s", path));
         ImageDto imageDto;
         if(!Objects.isNull(multipartFile)){
             log.info(String.format("imagem será substituida por uma nova no path: %s", path));
             imageDto = this.replaceImage(
                     multipartFile,
-                    path,
-                    adwi.getPathOfImage(),
-                    adwi.getPathOfImageThumb()
+                    path
             );
         }else{
             log.info("nenhuma nova imagem foi enviada");
             log.info(String.format("nenhuma nova imagem foi enviada para o path: %s", path));
-            imageDto = new ImageDto(adwi.getPathOfImage(), adwi.getPathOfImageThumb());
+            imageDto = new ImageDto(domain.getPathOfImage(), domain.getPathOfImageThumb());
         }
         return imageDto;
     }

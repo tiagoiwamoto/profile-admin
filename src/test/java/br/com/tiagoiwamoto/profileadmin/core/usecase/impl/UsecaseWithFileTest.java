@@ -108,7 +108,7 @@ class UsecaseWithFileTest extends UsecaseAutoInjectBean {
             var response = this.toDomain(responseDto, test.getClassToSerializeDomain());
             Mockito.when(test.getIAdapter().recoveryByUuid(Mockito.any(UUID.class))).thenReturn(response);
             Mockito.doNothing().when(test.getIAdapter()).delete(Mockito.any(UUID.class));
-            Mockito.doNothing().when(this.imageAndThumbAdapter).removeFiles(Mockito.any(), Mockito.any(), Mockito.any());
+            Mockito.doNothing().when(this.imageAndThumbAdapter).removeFiles(Mockito.any());
             test.getUsecaseWithFile().removeRecord(UUID.randomUUID());
         });
     }

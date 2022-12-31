@@ -97,7 +97,7 @@ public class CourseUsecase {
         Path path = Paths.get(PATH.concat(course.getCourseCategory().getUuid().toString()).concat(File.separator).concat(uuid.toString()));
         this.courseAdapter.delete(uuid);
         log.info(String.format("registro removido com sucesso para: %s", PATH));
-        this.imageAndThumbAdapter.removeFiles(path, course.getPathOfImage(), course.getPathOfImageThumb());
+        this.imageAndThumbAdapter.removeFiles(path);
     }
 
 }
