@@ -10,8 +10,6 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
 
-    services:
-
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 17
