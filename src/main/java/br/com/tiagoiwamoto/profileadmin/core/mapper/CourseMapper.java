@@ -21,6 +21,7 @@ public class CourseMapper implements IMapper<CourseDomain, CourseDto>{
     public CourseDto toDto(CourseDomain courseDomain){
         CourseDto courseDto = new CourseDto();
         BeanUtils.copyProperties(courseDomain, courseDto);
+        courseDto.setCourseCategory(this.courseCategoryMapper.toDto(courseDomain.getCourseCategory()));
         return courseDto;
     }
 

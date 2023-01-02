@@ -88,7 +88,8 @@ public class CourseUsecase {
         log.info(String.format("procurando registro: %s para: %s", uuid, PATH));
         var response = this.courseAdapter.recoveryByUuid(uuid);
         log.info(String.format("registro encontrado: %s para: %s", response, PATH));
-        return this.courseMapper.toDto(response);
+        var responseDto = this.courseMapper.toDto(response);
+        return responseDto;
     }
 
     public void removeRecord(UUID uuid){

@@ -116,6 +116,25 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.1</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M7</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
@@ -127,6 +146,71 @@
                     </excludes>
                 </configuration>
             </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.cosium.code</groupId>-->
+<!--                <artifactId>git-code-format-maven-plugin</artifactId>-->
+<!--                <version>4.2</version>-->
+<!--                <executions>-->
+<!--                    &lt;!&ndash; On commit, format the modified files &ndash;&gt;-->
+<!--                    <execution>-->
+<!--                        <id>install-formatter-hook</id>-->
+<!--                        <goals>-->
+<!--                            <goal>install-hooks</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                    &lt;!&ndash; On Maven verify phase, fail if any file-->
+<!--                    (including unmodified) is badly formatted &ndash;&gt;-->
+<!--                    <execution>-->
+<!--                        <id>validate-code-format</id>-->
+<!--                        <goals>-->
+<!--                            <goal>validate-code-format</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <dependencies>-->
+<!--                    &lt;!&ndash; Enable https://github.com/google/google-java-format &ndash;&gt;-->
+<!--                    <dependency>-->
+<!--                        <groupId>com.google.googlejavaformat</groupId>-->
+<!--                        <artifactId>google-java-format</artifactId>-->
+<!--                        <version>1.15.0</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>org.jacoco</groupId>-->
+<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
+<!--                <version>0.8.7</version>-->
+<!--                <configuration>-->
+<!--                    <output>file</output>-->
+<!--                    <append>true</append>-->
+<!--                    <systemPropertyVariables>-->
+<!--                        <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>-->
+<!--                    </systemPropertyVariables>-->
+<!--                    <excludes>-->
+<!--                        <exclude>br/com/tiagoiwamoto/profileadmin/config/**</exclude>-->
+<!--                        <exclude>br/com/tiagoiwamoto/profileadmin/adapter/dto/**</exclude>-->
+<!--                        <exclude>br/com/tiagoiwamoto/profileadmin/core/domain/**</exclude>-->
+<!--                        <exclude>br/com/tiagoiwamoto/profileadmin/core/error/**</exclude>-->
+<!--                        <exclude>br/com/tiagoiwamoto/profileadmin/entrypoint/dto/**</exclude>-->
+<!--                        <exclude>br/com/tiagoiwamoto/profileadmin/ProfileAdminApplication</exclude>-->
+<!--                    </excludes>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>jacoco-initialize</id>-->
+<!--                        <goals>-->
+<!--                            <goal>prepare-agent</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                    <execution>-->
+<!--                        <id>jacoco-site</id>-->
+<!--                        <phase>verify</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>report</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 
