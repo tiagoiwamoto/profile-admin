@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/experiences")
+@RequestMapping(path = "/api/v1/experiences")
 public class ExperienceResource extends AbstractResource<ExperienceDto> {
 
     public ExperienceResource(IUsecaseCreateUpdate experienceUsecase) {

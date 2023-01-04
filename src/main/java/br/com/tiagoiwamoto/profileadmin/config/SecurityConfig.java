@@ -20,6 +20,8 @@ public class SecurityConfig {
         http.authorizeRequests(authz -> authz
                         .antMatchers("/files/**")
                         .permitAll()
+                        .antMatchers("/api/v1/open/profile")
+                        .permitAll()
                         .anyRequest()
                         .authenticated())
                 .cors().and()

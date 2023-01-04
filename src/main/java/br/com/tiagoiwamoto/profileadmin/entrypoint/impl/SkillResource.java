@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/skills")
+@RequestMapping(path = "/api/v1/skills")
 public class SkillResource extends AbstractResource<SkillDto> {
 
     public SkillResource(IUsecaseCreateUpdate skillUsecase) {

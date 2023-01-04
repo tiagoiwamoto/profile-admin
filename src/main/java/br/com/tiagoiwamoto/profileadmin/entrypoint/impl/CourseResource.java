@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "/courses")
+@RequestMapping(path = "/api/v1/courses")
 @RequiredArgsConstructor
 public class CourseResource {
 

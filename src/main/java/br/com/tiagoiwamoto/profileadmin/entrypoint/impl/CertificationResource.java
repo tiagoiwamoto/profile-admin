@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/certifications")
+@RequestMapping(path = "/api/v1/certifications")
 public class CertificationResource extends AbstractResourceForFile<CertificationDto> {
 
     public CertificationResource(IUsecaseWithFile certificationUsecase) {

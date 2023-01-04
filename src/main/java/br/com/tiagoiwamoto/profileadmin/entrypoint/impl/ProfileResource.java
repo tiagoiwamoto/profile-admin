@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/profiles")
+@RequestMapping(path = "/api/v1/profiles")
 public class ProfileResource extends AbstractResource<ProfileDto> {
 
     public ProfileResource(IUsecaseCreateUpdate profileUsecase) {

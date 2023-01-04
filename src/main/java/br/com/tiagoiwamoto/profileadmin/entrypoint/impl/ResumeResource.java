@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/resumes")
+@RequestMapping(path = "/api/v1/resumes")
 public class ResumeResource extends AbstractResource<ResumeDto> {
 
     public ResumeResource(IUsecaseCreateUpdate resumeUsecase) {

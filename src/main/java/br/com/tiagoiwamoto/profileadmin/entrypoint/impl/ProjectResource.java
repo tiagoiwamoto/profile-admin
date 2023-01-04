@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/projects")
+@RequestMapping(path = "/api/v1/projects")
 public class ProjectResource extends AbstractResource<ProjectDto> {
 
     public ProjectResource(IUsecaseCreateUpdate projectUsecase) {

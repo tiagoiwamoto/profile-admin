@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/courses_categories")
+@RequestMapping(path = "/api/v1/courses_categories")
 public class CourseCategoryResource extends AbstractResource<CourseCategoryDto> {
 
     public CourseCategoryResource(IUsecaseCreateUpdate courseCategoryUsecase) {

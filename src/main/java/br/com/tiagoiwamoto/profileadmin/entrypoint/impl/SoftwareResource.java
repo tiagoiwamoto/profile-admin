@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/softwares")
+@RequestMapping(path = "/api/v1/softwares")
 public class SoftwareResource extends AbstractResourceForFile<SoftwareDto> {
 
     public SoftwareResource(IUsecaseWithFile softwareUsecase) {

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/scholarities")
+@RequestMapping(path = "/api/v1/scholarities")
 public class ScholarityResource extends AbstractResourceForFile<ScholarityDto> {
 
     public ScholarityResource(IUsecaseWithFile scholarityUsecase) {
