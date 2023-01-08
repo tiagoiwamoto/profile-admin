@@ -1,0 +1,17 @@
+openssl pkcs12 -export -in certificate.crt -inkey private.key -name kamehouse -out kamehouse.p12
+keytool -import -alias kamehouse -file certificate.crt -keystore kamehouse.p12 -storepass iwamoto
+
+keytool -import -alias kamehouse -file certificate.crt -keystore kamehouse.p12
+keytool -importcert -file certificate.crt -keystore kamehouse.p12 -alias "kamehouse"
+keytool -importcert -file certificate.crt -alias kamehouse -keystore $JAVA_HOME/lib/security/cacerts
+
+
+keytool -delete -alias kamehouse -keystore
+
+keytool -delete -alias kamehouse -keystore $JAVA_HOME/lib/security/cacerts
+keytool -delete -noprompt -alias kamehouse -keystore $JAVA_HOME/lib/security/cacerts -storepass iwamoto
+
+sudo dpkg --purge --force-depends ca-certificates-java
+sudo apt-get install ca-certificates-java
+
+java -jar /home/java/tiago-admin/profile-admin-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
