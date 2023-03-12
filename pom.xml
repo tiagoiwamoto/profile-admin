@@ -18,6 +18,13 @@
         <testcontainers.version>1.17.4</testcontainers.version>
         <sonar.organization>kamehouse</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+        <sonar.language>java</sonar.language>
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.sources>src/main</sonar.sources>
+        <sonar.tests>src/test</sonar.tests>
+        <sonar.java.binaries>target/classes</sonar.java.binaries>
+        <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
     <dependencies>
         <dependency>
@@ -182,41 +189,39 @@
 <!--                    </dependency>-->
 <!--                </dependencies>-->
 <!--            </plugin>-->
-<!--            <plugin>-->
-<!--                <groupId>org.jacoco</groupId>-->
-<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--                <version>0.8.7</version>-->
-<!--                <configuration>-->
-<!--                    <output>file</output>-->
-<!--                    <append>true</append>-->
-<!--                    <systemPropertyVariables>-->
-<!--                        <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>-->
-<!--                    </systemPropertyVariables>-->
-<!--                    <excludes>-->
-<!--                        <exclude>br/com/tiagoiwamoto/profileadmin/config/**</exclude>-->
-<!--                        <exclude>br/com/tiagoiwamoto/profileadmin/adapter/dto/**</exclude>-->
-<!--                        <exclude>br/com/tiagoiwamoto/profileadmin/core/domain/**</exclude>-->
-<!--                        <exclude>br/com/tiagoiwamoto/profileadmin/core/error/**</exclude>-->
-<!--                        <exclude>br/com/tiagoiwamoto/profileadmin/entrypoint/dto/**</exclude>-->
-<!--                        <exclude>br/com/tiagoiwamoto/profileadmin/ProfileAdminApplication</exclude>-->
-<!--                    </excludes>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>jacoco-initialize</id>-->
-<!--                        <goals>-->
-<!--                            <goal>prepare-agent</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    <execution>-->
-<!--                        <id>jacoco-site</id>-->
-<!--                        <phase>verify</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>report</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.7</version>
+                <configuration>
+                    <skip>${maven.test.skip}</skip>
+                    <output>file</output>
+                    <append>true</append>
+                    <excludes>
+                        <exclude>br/com/tiagoiwamoto/profileadmin/config/**</exclude>
+                        <exclude>br/com/tiagoiwamoto/profileadmin/adapter/dto/**</exclude>
+                        <exclude>br/com/tiagoiwamoto/profileadmin/core/domain/**</exclude>
+                        <exclude>br/com/tiagoiwamoto/profileadmin/core/error/**</exclude>
+                        <exclude>br/com/tiagoiwamoto/profileadmin/entrypoint/dto/**</exclude>
+                        <exclude>br/com/tiagoiwamoto/profileadmin/ProfileAdminApplication</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
