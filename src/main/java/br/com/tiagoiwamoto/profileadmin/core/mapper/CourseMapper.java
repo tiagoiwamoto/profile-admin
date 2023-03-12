@@ -25,4 +25,11 @@ public class CourseMapper implements IMapper<CourseDomain, CourseDto>{
         return courseDto;
     }
 
+    public CourseDto toCourseDto(CourseDomain courseDomain){
+        CourseDto courseDto = new CourseDto();
+        BeanUtils.copyProperties(courseDomain, courseDto);
+        courseDto.setCourseCategoryUuid(courseDomain.getCourseCategory().getUuid());
+        return courseDto;
+    }
+
 }

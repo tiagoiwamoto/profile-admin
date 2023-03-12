@@ -5,6 +5,7 @@ import br.com.tiagoiwamoto.profileadmin.adapter.dto.ImageDto;
 import br.com.tiagoiwamoto.profileadmin.adapter.impl.CourseAdapter;
 import br.com.tiagoiwamoto.profileadmin.adapter.impl.CourseCategoryAdapter;
 import br.com.tiagoiwamoto.profileadmin.core.mapper.CourseMapper;
+import br.com.tiagoiwamoto.profileadmin.core.repository.out.CourseMetric;
 import br.com.tiagoiwamoto.profileadmin.entrypoint.dto.CourseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -84,6 +85,18 @@ public class CourseUsecase {
         return listOfRecordsDtos;
     }
 
+    public List<CourseDto> recoveryLatestRecords(){
+        log.info(String.format("recuperando registros para %s", PATH));
+        var response = this.courseAdapter.latestCourses();
+        var listOfRecordsDtos = response
+                .stream()
+                .map(certification -> this.courseMapper.toCourseDto(certification))
+                .collect(Collectors.toList());
+
+        log.info(String.format("registros recuperados e convertidos para %s, resultado: %s", PATH, listOfRecordsDtos));
+        return listOfRecordsDtos;
+    }
+
     public CourseDto recoveryRecord(UUID uuid){
         log.info(String.format("procurando registro: %s para: %s", uuid, PATH));
         var response = this.courseAdapter.recoveryByUuid(uuid);
@@ -99,6 +112,14 @@ public class CourseUsecase {
         this.courseAdapter.delete(uuid);
         log.info(String.format("registro removido com sucesso para: %s", PATH));
         this.imageAndThumbAdapter.removeFiles(path);
+    }
+
+    public List<CourseMetric> getMetrics(){
+        log.info(String.format("recuperando registros para %s", PATH));
+        var response = this.courseAdapter.metricTotal();
+
+        log.info(String.format("registros recuperados e convertidos para %s, resultado: %s", PATH, response));
+        return response;
     }
 
 }

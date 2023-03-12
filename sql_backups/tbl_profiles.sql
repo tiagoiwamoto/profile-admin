@@ -1,0 +1,2 @@
+insert into MY_TABLE (id, created_at, updated_at, uuid, description, email, is_active, name, phone, sub_title, title)
+values  (1, '2023-01-08 08:44:38.944557', '2023-01-08 08:45:12.675729', '2ab5b212-71b9-4ac5-a70f-6f7093954118', 'descrição', 'tiago.iwamoto@gmail.com', true, 'nome', '11966421579', 'Especialista, tech lead, analista, desenvolvedor', 'Tiago Henrique Iwamoto');

@@ -13,7 +13,7 @@ public class CourseDto extends AbstractDtoWithImage{
 
     private String name;
     private String school;
-    private Integer duration;
+    private Double duration;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")

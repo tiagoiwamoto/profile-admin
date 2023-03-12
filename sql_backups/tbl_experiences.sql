@@ -1,0 +1,6 @@
+insert into MY_TABLE (id, created_at, updated_at, uuid, company, description, end_date, job, start_date)
+values  (1, '2023-01-08 09:17:31.099324', '2023-01-08 09:17:31.099359', 'a6c1c9c8-4d70-448b-88a3-0ddaf1c0b971', 'Ibolt', 'Atuando com Java, Php, Linux, mysql, filemaker, localweb, kinghost, git', '2018-06-02', 'Analista de sistemas', '2017-04-02'),
+        (2, '2023-01-08 09:20:52.338718', '2023-01-08 09:20:52.338747', 'efa87345-eb28-4a71-9589-1e057c27550a', 'Telefonica (Vivo)', 'Java, Springboot, AWS, Angular, Ionic, Jenkins, Git, Linux', '2019-08-02', 'Analista de sistemas', '2018-08-02'),
+        (3, '2023-01-08 09:22:18.001245', '2023-01-08 09:22:18.001293', '3782c371-1ac3-45dd-a6a0-a5b4d854fc22', 'Midway financeira', 'Java, Springboot, Angular, Aws, Rancher, Linux, Kafka, Redis, Ignite, Jenkins', '2021-04-02', 'Analista de sistemas', '2019-08-02'),
+        (4, '2023-01-08 09:23:15.483447', '2023-01-08 09:23:15.483468', '0c31c670-c6af-43b5-948c-38f4cda3ceaa', 'Gft', 'Java, Angular, Python, Springboot, Azure, Spark', '2021-09-02', 'Especialista de sistemas', '2021-04-02'),
+        (5, '2023-01-08 09:24:31.125334', '2023-01-08 09:24:31.125368', '39306764-321a-4948-b746-8e258473bdc0', 'Itaú Unibanco', 'Java, Angular, Springboot, Vuejs, aws, redis, kafka, cloud formation, terraform, linux', '3000-09-02', 'Analista de sistemas', '2021-09-02');

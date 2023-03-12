@@ -21,7 +21,7 @@ public class CourseDomain extends AbstractDomainWithImage {
 
     private String name;
     private String school;
-    private Integer duration;
+    private Double duration;
     private LocalDate startDate;
     private LocalDate endDate;
     @ManyToOne(fetch = FetchType.LAZY)

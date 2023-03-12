@@ -10,12 +10,14 @@
     </parent>
     <groupId>br.com.tiagoiwamoto</groupId>
     <artifactId>profile-admin</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>profile-admin</name>
     <description>profile-admin</description>
     <properties>
         <java.version>17</java.version>
         <testcontainers.version>1.17.4</testcontainers.version>
+        <sonar.organization>kamehouse</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
     <dependencies>
         <dependency>
